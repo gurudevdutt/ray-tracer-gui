@@ -75,7 +75,11 @@ def plot_lenses(
         ls = "--" if is_plane else "-"
         ax.plot([x_pos, x_pos], [-half_d, half_d], color="k", linestyle=ls)
         if elem.name:
-            ax.text(x_pos, half_d + text_y, elem.name, ha="center", va="bottom", fontsize=8)
+            # clip label to just inside the top of the axes so it never floats above the frame
+            ymax = ax.get_ylim()[1]
+            label_y = min(half_d + text_y, ymax * 0.97)
+            ax.text(x_pos, label_y, elem.name, ha="center", va="bottom", fontsize=8,
+                    clip_on=True)
 
 
 def plot_single_lens(

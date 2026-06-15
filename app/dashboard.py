@@ -145,8 +145,9 @@ class RayTracerDashboard(param.Parameterized):
         demo_select = pn.widgets.Select(
             name="Demo file",
             options={p.stem: str(p) for p in demo_files},
+            width=200,
         )
-        load_demo_btn = pn.widgets.Button(name="Load demo", button_type="primary")
+        load_demo_btn = pn.widgets.Button(name="Load demo", button_type="primary", width=100)
         load_demo_btn.on_click(
             lambda _: self._load_file(pathlib.Path(demo_select.value))
         )
@@ -194,36 +195,33 @@ class RayTracerDashboard(param.Parameterized):
         # --- sidebar ---
         sidebar = pn.Column(
             pn.pane.Markdown("## Ray Tracer GUI"),
-            pn.WidgetBox(
-                pn.Row(
-                    pn.widgets.FloatInput.from_param(self.param.x_min, width=90),
-                    pn.widgets.FloatInput.from_param(self.param.x_max, width=90),
-                ),
-                pn.Row(
-                    pn.widgets.FloatInput.from_param(self.param.y_min, width=90),
-                    pn.widgets.FloatInput.from_param(self.param.y_max, width=90),
-                ),
-                pn.Row(
-                    pn.widgets.FloatInput.from_param(self.param.text_y, width=90),
-                    pn.widgets.Checkbox.from_param(self.param.auto_update),
-                ),
-                update_btn,
-                name="Axis controls",
+            pn.pane.Markdown("**Axis controls**"),
+            pn.Row(
+                pn.widgets.FloatInput.from_param(self.param.x_min, width=90),
+                pn.widgets.FloatInput.from_param(self.param.x_max, width=90),
             ),
-            pn.WidgetBox(
-                pn.Row(demo_select, load_demo_btn),
-                pn.Spacer(height=4),
-                file_input,
-                load_file_btn,
-                pn.Spacer(height=4),
-                pn.Row(save_path_input, save_btn),
-                name="File I/O",
+            pn.Row(
+                pn.widgets.FloatInput.from_param(self.param.y_min, width=90),
+                pn.widgets.FloatInput.from_param(self.param.y_max, width=90),
             ),
-            pn.WidgetBox(
-                pn.Row(calc_f_in, calc_L_in, calc_btn),
-                calc_out,
-                name="Thin-lens calculator",
+            pn.Row(
+                pn.widgets.FloatInput.from_param(self.param.text_y, width=90),
+                pn.widgets.Checkbox.from_param(self.param.auto_update),
             ),
+            update_btn,
+            pn.Spacer(height=8),
+            pn.pane.Markdown("**File I/O**"),
+            pn.Row(demo_select, load_demo_btn),
+            pn.Spacer(height=4),
+            file_input,
+            load_file_btn,
+            pn.Spacer(height=4),
+            pn.Row(save_path_input, save_btn),
+            pn.Spacer(height=8),
+            pn.pane.Markdown("**Thin-lens calculator**"),
+            pn.Row(calc_f_in, calc_L_in, calc_btn),
+            calc_out,
+            pn.Spacer(height=8),
             pn.pane.Markdown(HELP_TEXT, width=300),
             width=320,
         )

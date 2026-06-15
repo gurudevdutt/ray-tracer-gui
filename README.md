@@ -27,13 +27,25 @@ pip install -e ".[dev,app]"
 .venv/bin/python -m pytest tests/ -v
 ```
 
+## Screenshots
+
+![Beam expander demo — ray plot with controls sidebar](docs/screenshots/beam_expander.png)
+
+*Beam expander demo: two converging lenses followed by a flat exit plane. The sidebar shows axis
+controls, demo file selector, file I/O, and the thin-lens calculator.*
+
+![Editable ray and lens tables](docs/screenshots/tables.png)
+
+*Editable ray and lens tables. Each row can be modified directly in the browser; clicking
+**Update plot** or adjusting axis limits regenerates the ray diagram immediately.*
+
 ## Running the GUI
 
 ```bash
-panel serve app/dashboard.py --show
+.venv/bin/panel serve app/dashboard.py --show --port 5007
 ```
 
-Opens at `http://localhost:5006` by default.
+Opens at `http://localhost:5007/dashboard` by default.
 
 ## Physics
 
